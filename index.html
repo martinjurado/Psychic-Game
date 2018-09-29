@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> The Pyschic Game! </h1>
+
+    <div>
+        <p id="question-text">Guess what letter I'm thinking about! </p>
+        <p id="wins-text"></p>
+        <p id="loses-text"></p>
+        <p id="guesscount-text"></p>
+        <p id="userchoice-text"></p>
+    </div>
+
+    <script type="text/Javascript">
+    
+    // variables for wins and loses should start at 0
+    var wins = 0;
+    var loses = 0;
+    var guessCount = 9; 
+    var userGuesses = [];
+
+    
+    var questionText = document.getElementById("question");
+    var winsText = document.getElementById("wins-text");
+    var losesText = document.getElementById("loses-text");
+    var guessCountText = document.getElementById("guesscount-text");
+    var userChoiceText = document.getElementById("userchoice-text");
+    
+    //variables to be chosen by the user     
+    var randomOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+        "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; 
+    
+    
+    
+    //EVENT
+
+    document.onkeyup = function(event) {
+
+        // the event that user presses a random letter
+        var userRandom = event.key;
+
+        // answer
+        var answer = "m";
+
+        // Loop the array of random options
+        for (i = 0; i < randomOptions.length; i ++)
+        
+        // By putting -1, the index will not return anything because -1 index is not present
+        if (randomOptions[i].indexOf(userRandom) > -1) {
+           
+            if (userRandom === answer) { // If you win, win count increases and guessCount resets
+				
+                wins++;
+				guessCount = 9;
+				userGuesses = [];
+			}
+            
+            if (userRandom != answer) { // If the letter is not the right one, guessCount goes down
+                guessCount--;
+            }
+
+            if (guessCount === 0) { // If you lose, Lose count increases and guessCount resets
+                loses++;
+                guessCount = 9; 
+                userGuesses = [];
+            }
+
+
+            // Displays the wins/loses/random guesses
+            userChoiceText.textContent = "You chose: " + userRandom; // Figure out how to display past choices
+            winsText.textContent = "Wins: " + wins;
+            losesText.textContent = "Loses: " + loses;
+            guessCountText.textContent = "Guesses left: " + guessCount;
+
+        }
+        
+    }
+
+    </script>
+
+</body>
+
+</html>
